@@ -142,11 +142,12 @@ class LinearSoftmaxClassifier():
         if self.W is None:
             self.W = 0.001 * np.random.randn(num_features, num_classes)
 
-        loss_history = np.arange(epochs).astype(np.float)
+        loss_history = np.arange(epochs).astype(np.float64)
         for epoch in range(epochs):
             shuffled_indices = np.arange(num_train)
             np.random.shuffle(shuffled_indices)
             sections = np.arange(batch_size, num_train, batch_size)
+            
             batches_indices = np.array_split(shuffled_indices, sections)
             
             for i in range(sections.shape[0]): 
@@ -159,7 +160,6 @@ class LinearSoftmaxClassifier():
                 
             loss_history[epoch] = loss
             #print("Epoch %i, loss: %f" % (epoch, loss))
-
         return loss_history
 
     def predict(self, X):
